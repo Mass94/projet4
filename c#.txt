@@ -1,0 +1,33 @@
+ //(1) Afficher les noms des étudiants dont le nom complet possède plus de 6 caractères (espace y compris)
+            var resultat2 = etudiants.Where(e => e.NomComplet.Length > 6).Select(e => e.NomComplet);
+            foreach (var item in resultat2)
+            {
+                Console.WriteLine(item);
+            }
+            //(2) Afficher les cinq plus grandes notes (les doublons ne sont pas autorisés)
+            //    e => e.Id,
+            //    n => n.IdEtudiant,
+            //    (e, n) =>);
+            //foreach (var n in resultat)
+            //{
+            //    Console.WriteLine(n);
+            //}
+            //(3) Afficher les dix plus faibles notes de la matière « C# »
+            //var resultat1 = etudiants .Join(notes,
+            //    e=>e.Id,
+            //    n=>n.IdEtudiant,
+            //    (e,n)=>);
+
+            // question 3 methode1
+           //var idmat = matieres.Where(m => m.Intitule == "c#").First().Id;
+           // notes.Where(n => n.IdMatiere == idmat)
+           //     .Select(n => n.Valeur).Distinct()
+           //     .OrderBy(n => n).Take(10)
+           //     .ToList().ForEach(Console.WriteLine);
+
+            // question 3 methode2
+            notes.Join(matieres.Where(m => m.Intitule == "c#"), n => n.IdMatiere, m => m.Id, (n, m) => n.Valeur)
+                .Distinct()
+                .OrderBy(n => n)
+                .Take(10)
+                .ToList().ForEach(Console.WriteLine);
